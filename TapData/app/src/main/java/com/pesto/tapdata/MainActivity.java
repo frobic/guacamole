@@ -28,20 +28,20 @@ import java.io.IOException;
 
 public class MainActivity extends Activity {
 
-    private ListView mListSensors = null;
-    private ListView mListFreq = null;
-    private Button mWrite = null;
-    private Button mStart = null;
+    private ListView mListSensors;
+    private ListView mListFreq;
+    private Button mWrite ;
+    private Button mStart;
 
-    private String[] mSensors = null;
+    private String[] mSensors;
     private String[] mFreq = {"Normal", "UI", "Jeu", "Le plus rapide"};
 
-    private SensorManager mSensorManager = null;
-    private Sensor mAccelerometer = null;
-    private Sensor mGyroscope = null;
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private Sensor mGyroscope;
 
     private boolean isRecording = false;
-    private String output = "";
+    private String output;
 
     final SensorEventListener mAccelerometerEventListener = new SensorEventListener() {
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
