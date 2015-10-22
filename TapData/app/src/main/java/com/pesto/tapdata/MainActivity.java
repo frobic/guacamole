@@ -25,8 +25,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
 
     private ListView mListSensors;
     private ListView mListFreq;
@@ -37,43 +38,37 @@ public class MainActivity extends Activity {
     private String[] mFreq = {"Normal", "UI", "Jeu", "Le plus rapide"};
 
     private SensorManager mSensorManager;
+    private int mNbSensors = 5;
     private Sensor mAccelerometer;
     private Sensor mGyroscope;
+    private Sensor mGravity;
+    private Sensor mLinearAcceleration;
+    private Sensor mRotationVector;
+    private Sensor[] mSensorsArray = new Sensor[mNbSensors];
+
+
+
+
 
     private boolean isRecording = false;
     private String output;
 
-    final SensorEventListener mAccelerometerEventListener = new SensorEventListener() {
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-        }
-
+    final SensorEventListener mEventListener = new SensorEventListener() {
+        @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
-            if(isRecording && mListSensors.getCheckedItemPositions().get(0)) {
-                float x = sensorEvent.values[0];
-                float y = sensorEvent.values[1];
-                float z = sensorEvent.values[2];
-                long time = sensorEvent.timestamp;
-                output += time + "(ns)," + "accelerometer," + x + "," + y + "," + z + "\n";
+            if (isRecording) {
+                int i = Arrays.asList(mSensorsArray).indexOf(sensorEvent.sensor);
+                    if (mListSensors.getCheckedItemPositions().get(i)) {
+                        long time = sensorEvent.timestamp;
+                        output += time + "(ns)," + mSensors[i] + "," + Arrays.toString(sensorEvent.values).replace("[","").replace("]","")+ "\n";
+                    }
             }
+        }
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     };
 
-    final SensorEventListener mGyroscopeEventListener = new SensorEventListener() {
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-        }
-
-        public void onSensorChanged(SensorEvent sensorEvent) {
-            if(isRecording && mListSensors.getCheckedItemPositions().get(1)) {
-                float x = sensorEvent.values[0];
-                float y = sensorEvent.values[1];
-                float z = sensorEvent.values[2];
-                long time = sensorEvent.timestamp;
-                output += time + "(ns)," + "gyroscope," + x + "," + y + "," + z + "\n";
-            }
-        }
-    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +81,7 @@ public class MainActivity extends Activity {
         mStart = (Button) findViewById(R.id.start);
         mWrite.setEnabled(false);
 
-        mSensors = new String[]{"Accéléromètre", "Gyroscope"};
+        mSensors = new String[]{"Accelerometre", "Gyroscope", "Gravite", "Accelerationlineaire", "Vecteurderotation"};
         mListSensors.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, mSensors));
         mListSensors.setItemChecked(0, true);
 
@@ -96,6 +91,14 @@ public class MainActivity extends Activity {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        mGravity = mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+        mLinearAcceleration = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        mRotationVector = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        mSensorsArray[0] = mAccelerometer;
+        mSensorsArray[1] = mGyroscope;
+        mSensorsArray[2] = mGravity;
+        mSensorsArray[3] = mLinearAcceleration;
+        mSensorsArray[4] = mRotationVector;
 
         mWrite.setOnClickListener(new View.OnClickListener() {
 
@@ -103,9 +106,12 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Les données ont été enregistrées !", Toast.LENGTH_LONG).show();
 
+
+
+
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"jbgueusquin@gmail.com"});
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"bogard.vincent@gmail.com"});
                 i.putExtra(Intent.EXTRA_SUBJECT, "Data");
                 i.putExtra(Intent.EXTRA_TEXT, output);
                 try {
@@ -119,8 +125,9 @@ public class MainActivity extends Activity {
                 mStart.setEnabled(true);
                 isRecording = false;
 
-                mSensorManager.unregisterListener(mAccelerometerEventListener, mAccelerometer);
-                mSensorManager.unregisterListener(mGyroscopeEventListener, mGyroscope);
+                for(Sensor sensor : mSensorsArray){
+                    mSensorManager.unregisterListener(mEventListener,sensor);
+                }
             }
         });
 
@@ -135,23 +142,25 @@ public class MainActivity extends Activity {
                 mWrite.setEnabled(true);
                 isRecording = true;
 
+
+
                 switch (mListFreq.getCheckedItemPosition())
                 {
                     case 0:
-                        mSensorManager.registerListener(mAccelerometerEventListener, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-                        mSensorManager.registerListener(mGyroscopeEventListener, mGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+                        for(Sensor sensor : mSensorsArray)
+                            mSensorManager.registerListener(mEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
                         break;
                     case 1:
-                        mSensorManager.registerListener(mAccelerometerEventListener, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
-                        mSensorManager.registerListener(mGyroscopeEventListener, mGyroscope, SensorManager.SENSOR_DELAY_UI);
+                        for(Sensor sensor : mSensorsArray)
+                            mSensorManager.registerListener(mEventListener, sensor, SensorManager.SENSOR_DELAY_UI);
                         break;
                     case 2:
-                        mSensorManager.registerListener(mAccelerometerEventListener, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
-                        mSensorManager.registerListener(mGyroscopeEventListener, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
+                        for(Sensor sensor : mSensorsArray)
+                            mSensorManager.registerListener(mEventListener, sensor, SensorManager.SENSOR_DELAY_GAME);
                         break;
                     case 3:
-                        mSensorManager.registerListener(mAccelerometerEventListener, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
-                        mSensorManager.registerListener(mGyroscopeEventListener, mGyroscope, SensorManager.SENSOR_DELAY_FASTEST);
+                        for(Sensor sensor : mSensorsArray)
+                            mSensorManager.registerListener(mEventListener, sensor, SensorManager.SENSOR_DELAY_FASTEST);
                         break;
                 }
             }
