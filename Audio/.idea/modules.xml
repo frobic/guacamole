@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Audio.iml" filepath="$PROJECT_DIR$/Audio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FFTLibrary/FFTLibrary.iml" filepath="$PROJECT_DIR$/FFTLibrary/FFTLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
     </modules>
   </component>
 </project>
