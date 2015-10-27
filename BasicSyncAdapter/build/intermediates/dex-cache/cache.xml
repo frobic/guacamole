@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/jbgueusquin/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0.1/69e12f4c6aeac392555f1ea86fab82b5e5e31ad4/guava-14.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="69e12f4c6aeac392555f1ea86fab82b5e5e31ad4">
+        <dex dex="/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/build/intermediates/pre-dexed/debug/guava-14.0.1-4929e1129c1c4454afe5f9a365e68e30d99daaac.jar" />
+    </item>
+    <item
+        jar="/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/build/intermediates/pre-dexed/debug/classes-455039f1a00e4355a2e8f4cc7b818a52df4ead68.jar" />
+    </item>
+    <item
+        jar="/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-b1cd01ce56b5b7b5225e7ea934a6b023945eaef9.jar" />
+    </item>
+    <item
+        jar="/Users/jbgueusquin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-1992389dcd9212b62716fc3159420dc9c5d3b743.jar" />
+    </item>
+
+</items>

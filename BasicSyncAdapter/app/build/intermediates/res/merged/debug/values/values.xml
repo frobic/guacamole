@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/src/main/res/values/attrs.xml -->
+    <eat-comment/>
+    <attr format="reference" name="indeterminateProgressStyle"/>
+    <!-- From: file:/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/src/main/res/values/dimen.xml -->
+    <eat-comment/>
+    <dimen name="action_button_min_width">56dp</dimen>
+    <dimen name="indeterminate_progress_size">32dp</dimen>
+    <!-- From: file:/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="account_name">FeedSync Service</string>
+    <string name="app_name">Santé au travail</string>
+    <string name="description_refresh">Refresh</string>
+    <string name="loading">Waiting for data...</string>
+    <string name="title_entry_detail">Entry Detail</string>
+    <!-- From: file:/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+</resources>
