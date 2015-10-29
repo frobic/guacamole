@@ -30,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SyncAdapter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SyncAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5925927">
-              <caret line="240" column="60" selection-start-line="240" selection-start-column="57" selection-end-line="240" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.13436124">
+              <caret line="182" column="31" selection-start-line="182" selection-start-column="31" selection-end-line="182" selection-end-column="31" />
               <folding>
                 <element signature="e#0#14510#0" expanded="true" />
               </folding>
@@ -56,21 +56,21 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncUtils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
+              <caret line="32" column="53" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MotionMeasurement.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MotionMeasurement.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/MotionMeasurement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49779737">
-              <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.814815">
+              <caret line="235" column="30" selection-start-line="235" selection-start-column="30" selection-end-line="235" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#11349#11350#0" expanded="true" />
-                <element signature="e#11409#11410#0" expanded="true" />
+                <element signature="e#13043#13044#0" expanded="true" />
+                <element signature="e#13103#13104#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2372,10 +2372,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SoundMeasurement.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/calc/FFT.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/MotionMeasurement.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncUtils.java" />
       </list>
     </option>
   </component>
@@ -2809,8 +2809,8 @@
           <caret line="172" column="20" selection-start-line="172" selection-start-column="20" selection-end-line="172" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11349#11350#0" expanded="true" />
-            <element signature="e#11409#11410#0" expanded="true" />
+            <element signature="e#13043#13044#0" expanded="true" />
+            <element signature="e#13103#13104#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2881,8 +2881,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11349#11350#0" expanded="true" />
-            <element signature="e#11409#11410#0" expanded="true" />
+            <element signature="e#13043#13044#0" expanded="true" />
+            <element signature="e#13103#13104#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2961,32 +2961,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5925927">
-          <caret line="240" column="60" selection-start-line="240" selection-start-column="57" selection-end-line="240" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#14510#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SoundMeasurement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2997,14 +2971,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="53" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/MotionMeasurement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49779737">
-          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.814815">
+          <caret line="235" column="30" selection-start-line="235" selection-start-column="30" selection-end-line="235" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11349#11350#0" expanded="true" />
-            <element signature="e#11409#11410#0" expanded="true" />
+            <element signature="e#13043#13044#0" expanded="true" />
+            <element signature="e#13103#13104#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/network/sync/basicsyncadapter/SyncAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13436124">
+          <caret line="182" column="31" selection-start-line="182" selection-start-column="31" selection-end-line="182" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#14510#0" expanded="true" />
           </folding>
         </state>
       </provider>

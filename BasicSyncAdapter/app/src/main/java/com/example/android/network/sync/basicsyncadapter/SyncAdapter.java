@@ -192,7 +192,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
             long t = 0;
             Calendar date = Calendar.getInstance();
             t = date.getTimeInMillis();
-            long end = t+15000;
+            long end = t+30000;
             while(t < end) {
                 Calendar now = Calendar.getInstance();
                 t = now.getTimeInMillis();

@@ -30,7 +30,7 @@ import com.example.android.network.sync.basicsyncadapter.provider.FeedContract;
  * Static helper methods for working with the sync framework.
  */
 public class SyncUtils {
-    private static final long SYNC_FREQUENCY = 60 * 1;  // 1 hour (in seconds)
+    private static final long SYNC_FREQUENCY = 60 * 5;  // 1 hour (in seconds)
     private static final String CONTENT_AUTHORITY = FeedContract.CONTENT_AUTHORITY;
     private static final String PREF_SETUP_COMPLETE = "setup_complete";
 

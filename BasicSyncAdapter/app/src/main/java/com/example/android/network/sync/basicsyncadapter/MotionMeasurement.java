@@ -194,7 +194,56 @@ public class MotionMeasurement implements SensorEventListener {
         return String.format("%.3f (vib.)", result);
     }
 
-    public String process4repetition(List xAcc, List yAcc, List zAcc, List tAcc, List xGyr, List yGyr, List zGyr, List tGyr){
+    public String process4repetition(List xAcc, List yAcc, List zAcc, List tAcc, List xGyr, List yGyr, List zGyr, List tGyr) {
+
+        double step = 1.;
+        double size = 15.;
+
+        int rep = 0;
+
+        double tmin = (double) tAcc.get(0);
+        double tmax = (double) tAcc.get(tAcc.size()-1);
+
+        tmin = (tmin < (double) tGyr.get(0))?tmin:(double) tGyr.get(0);
+        tmax = (tmax > (double) tGyr.get(tGyr.size()-1))?tmax:(double) tGyr.get(tGyr.size()-1);
+
+        double tWinB = tmin;
+        double tWinE = tmin+size;
+
+        int accB = 0;
+        int accE = 0;
+        int gyrB = 0;
+        int gyrE = 0;
+
+        int nbWindows = 0;
+
+        while(tWinE < tmax) {
+            nbWindows++;
+            while ((double) tAcc.get(accB) < tWinB && accB < tAcc.size() - 1) {
+                accB++;
+            }
+            while ((double) tAcc.get(accE) < tWinE && accE < tAcc.size() - 1) {
+                accE++;
+            }
+            while ((double) tAcc.get(gyrB) < tWinB && gyrB < tGyr.size() - 1) {
+                gyrB++;
+            }
+            while ((double) tGyr.get(gyrE) < tWinE && gyrE < tGyr.size() - 1) {
+                gyrE++;
+            }
+            rep += process4repetition_sub(xAcc.subList(accB, accE), yAcc.subList(accB,accE), zAcc.subList(accB,accE), tAcc.subList(accB,accE), xGyr.subList(gyrB,gyrE), yGyr.subList(gyrB,gyrE), zGyr.subList(gyrB,gyrE), tGyr.subList(gyrB,gyrE));
+            tWinB = tWinB + step;
+            tWinE = tWinE + step;
+        }
+
+        if ((double) rep / (double) nbWindows > .66) {
+            return "Repetitive";
+        }
+        return "Non Repetitive";
+
+    }
+
+    public int process4repetition_sub(List xAcc, List yAcc, List zAcc, List tAcc, List xGyr, List yGyr, List zGyr, List tGyr){
         double result = 0;
         for(int i = 0; i < yAcc.size(); i++) {
             double y = (double)yAcc.get(i);
@@ -232,9 +281,10 @@ public class MotionMeasurement implements SensorEventListener {
         myInstance.setDataset(mySet);
 
         String response = "Erreur";
+        int rep = -1;
         try {
             double myClass = cls.classifyInstance(myInstance);
-
+            rep = (int) myClass;
             response = mySet.classAttribute().value((int) myClass);
         } catch(Exception e) {
             Log.e("Erreur",e.getMessage());
@@ -242,7 +292,7 @@ public class MotionMeasurement implements SensorEventListener {
 
         Log.i("Reponse", response);
 
-        return response;
+        return rep;
     }
 
     public double[] computeInputFeatures(List coord, List time){
