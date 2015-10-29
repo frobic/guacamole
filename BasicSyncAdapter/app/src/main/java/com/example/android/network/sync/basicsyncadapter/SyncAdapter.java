@@ -103,7 +103,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
      * URL
      */
     private static final String URL_LOGIN = "http://figarovsgorafi.fr/guacamole/API/login.php?user=florent&password=bonjour";
-    private static final String URL_UPLOAD = "http://figarovsgorafi.fr/guacamole/API/save.php?key=%1$s&type=dBa&value=%2$s";
+    private static final String URL_UPLOAD = "http://figarovsgorafi.fr/guacamole/API/save.php?key=%1$s&type=%3$s&value=%2$s";
 
     /**
      * Network connection timeout, in milliseconds.
@@ -192,7 +192,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
             long t = 0;
             Calendar date = Calendar.getInstance();
             t = date.getTimeInMillis();
-            long end = t+5000;
+            long end = t+15000;
             while(t < end) {
                 Calendar now = Calendar.getInstance();
                 t = now.getTimeInMillis();
@@ -233,9 +233,14 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
                     Log.i(TAG, "Login succeeded");
 
                     // Upload
-                    final URL locationUpload = new URL(String.format(URL_UPLOAD, key, decibel));
+                    final URL locationUpload = new URL(String.format(URL_UPLOAD, key, decibel, "dBa"));
                     streamUpload = downloadUrl(locationUpload);
                     String[] uploadResult = checkUpload(streamUpload);
+                    Log.i(TAG, "Upload: " + uploadResult[0]);
+
+                    final URL locationUpload2 = new URL(String.format(URL_UPLOAD, key, motionMeasure[1], "rep"));
+                    streamUpload = downloadUrl(locationUpload2);
+                    uploadResult = checkUpload(streamUpload);
                     Log.i(TAG, "Upload: " + uploadResult[0]);
 
                 } else if(status.equals("Error")){

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/frobic/Downloads/audio-analyzer-for-android-master/FFTLibrary/src/main/assets"/></dataSet><dataSet config="debug"><source path="/Users/frobic/Downloads/audio-analyzer-for-android-master/FFTLibrary/src/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/frobic/AndroidStudioProjects/Audio/FFTLibrary/src/main/assets"/></dataSet><dataSet config="debug"><source path="/Users/frobic/AndroidStudioProjects/Audio/FFTLibrary/src/debug/assets"/></dataSet></merger>

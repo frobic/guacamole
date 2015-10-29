@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BasicSyncAdapter.iml" filepath="$PROJECT_DIR$/BasicSyncAdapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FFTLibrary/FFTLibrary.iml" filepath="$PROJECT_DIR$/FFTLibrary/FFTLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weka-3.6.6-android/weka-3.6.6-android.iml" filepath="$PROJECT_DIR$/weka-3.6.6-android/weka-3.6.6-android.iml" />
     </modules>
   </component>
 </project>

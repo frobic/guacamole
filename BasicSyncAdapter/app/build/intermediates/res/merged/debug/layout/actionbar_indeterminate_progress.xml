@@ -23,4 +23,4 @@
                  android:layout_gravity="center"
                  style="?indeterminateProgressStyle" />
 </FrameLayout>
-<!-- From: file:/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/src/main/res/layout/actionbar_indeterminate_progress.xml -->
+<!-- From: file:/Users/frobic/AndroidStudioProjects/BasicSyncAdapter/app/src/main/res/layout/actionbar_indeterminate_progress.xml -->

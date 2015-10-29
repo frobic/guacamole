@@ -10,4 +10,4 @@
           android:layout_marginRight="16dp"
           tools:context=".EntryListActivity"
           tools:layout="@android:layout/list_content" />
-<!-- From: file:/Users/jbgueusquin/AndroidStudioProjects/BasicSyncAdapter/app/src/main/res/layout/activity_entry_list.xml -->
+<!-- From: file:/Users/frobic/AndroidStudioProjects/BasicSyncAdapter/app/src/main/res/layout/activity_entry_list.xml -->

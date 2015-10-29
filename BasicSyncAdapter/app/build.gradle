@@ -24,4 +24,6 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.google.guava:guava:14.0.1'
+    compile project(':FFTLibrary')
+    compile project(':weka-3.6.6-android')
 }

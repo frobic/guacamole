@@ -10,7 +10,7 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 
 import com.example.android.network.sync.basicsyncadapter.calc.Complex;
-import com.example.android.network.sync.basicsyncadapter.calc.FFT;
+import com.example.android.network.sync.basicsyncadapter.calc.FFTJB;
 
 /**
  * Created by jbgueusquin on 26/10/2015.
@@ -48,7 +48,7 @@ public class SoundMeasurement {
             for(int i = 0; i < N; i++)
                 window[i] = new Complex((double)buffer[i],0.0);
 
-            Complex[] spectrum = FFT.fft(window);
+            Complex[] spectrum = FFTJB.fft(window);
 
             double c1 = 3.5041384e16;
             double c2 = 20.598997*20.598997;

@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
         private int channelConfig = AudioFormat.CHANNEL_IN_STEREO;
         private int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
         private int minBufferSize = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
-        private int bufferSize = Math.max(minBufferSize, Math.round(0.125f*sampleRateInHz));
+        private int bufferSize = Math.max(minBufferSize, Math.round(1.f*sampleRateInHz));
         private short[] buffer = new short[bufferSize];
 
         private AudioRecord recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, sampleRateInHz, channelConfig, audioFormat, bufferSize);
@@ -118,8 +118,6 @@ public class MainActivity extends Activity {
 
                     // Définir un buffer size pour 0.125s
                     int nbSamples = recorder.read(buffer, 0, bufferSize);
-                    Log.i("Info", ""+nbSamples);
-                    Log.i("Info", ""+bufferSize);
 
                     int N = 1;
                     while(nbSamples >= N*2) {
@@ -155,12 +153,11 @@ public class MainActivity extends Activity {
 
                     energy = energy/N; // Cas 0 ???
                     double meanEnergy = energy*fMin;
-                    double dBA = 10.0*Math.log(meanEnergy)/Math.log(10.0)+36.0;
+                    double dBA = 10.0*Math.log(meanEnergy)/Math.log(10.0)-29.0;
                     int dBA_int = Math.round((float)dBA);
                     publishProgress(dBA_int);
                 }
 
-                Log.i("Passe", "ici");
 
                 return true;
             }catch(Exception e) {
