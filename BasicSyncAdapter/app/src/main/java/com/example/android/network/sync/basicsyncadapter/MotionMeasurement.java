@@ -3,18 +3,29 @@ package com.example.android.network.sync.basicsyncadapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.OperationApplicationException;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.util.JsonReader;
 import android.util.Log;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+
 import com.google.corp.productivity.specialprojects.android.fft.RealDoubleFFT;
 import weka.core.Attribute;
 import weka.core.FastVector;
@@ -84,6 +95,19 @@ public class MotionMeasurement implements SensorEventListener {
     private FastVector fvWekaAttributes = new FastVector(25);
     private Instances mySet;
 
+
+    private static final String URL_LOGIN = "http://figarovsgorafi.fr/guacamole/API/login.php?user=florent&password=bonjour";
+    private static final String URL_UPLOAD = "http://figarovsgorafi.fr/guacamole/API/save.php?key=%1$s&type=%3$s&value=%2$s";
+
+    /**
+     * Network connection timeout, in milliseconds.
+     */
+    private static final int NET_CONNECT_TIMEOUT_MILLIS = 15000;  // 15 seconds
+
+    /**
+     * Network read timeout, in milliseconds.
+     */
+    private static final int NET_READ_TIMEOUT_MILLIS = 10000;  // 10 seconds
 
     public MotionMeasurement(Context mContext) {
 
@@ -167,9 +191,8 @@ public class MotionMeasurement implements SensorEventListener {
 
         mSensorManager.unregisterListener(this);
 
-        String[] result = {"Result1", "Result2"};
-        result[0] = process4vibration(xAccHistory, yAccHistory, zAccHistory, tAccHistory, xGyrHistory, yGyrHistory, zGyrHistory, tGyrHistory);
-        result[1] = process4repetition(xAccHistory, yAccHistory, zAccHistory, tAccHistory, xGyrHistory, yGyrHistory, zGyrHistory, tGyrHistory);
+        String[] result = {"Result1"};
+        result[0] = process(xAccHistory, yAccHistory, zAccHistory, tAccHistory, xGyrHistory, yGyrHistory, zGyrHistory, tGyrHistory);
 
         xAccHistory.clear();
         yAccHistory.clear();
@@ -181,20 +204,8 @@ public class MotionMeasurement implements SensorEventListener {
         return result;
     }
 
-    public String process4vibration(List xAcc, List yAcc, List zAcc, List tAcc, List xGyr, List yGyr, List zGyr, List tGyr){
-        Log.i("Mesures", xAccHistory.size() + " for acceleration");
-        Log.i("Mesures", xGyrHistory.size() + " for gyroscope");
 
-        double result = 0;
-        for(int i = 0; i < xAcc.size(); i++) {
-            double x = (double)xAcc.get(i);
-            result = (result*i + x)/(i+1);
-        }
-
-        return String.format("%.3f (vib.)", result);
-    }
-
-    public String process4repetition(List xAcc, List yAcc, List zAcc, List tAcc, List xGyr, List yGyr, List zGyr, List tGyr) {
+    public String process(List xAcc, List yAcc, List zAcc, List tAcc, List xGyr, List yGyr, List zGyr, List tGyr) {
 
         double step = 1.;
         double size = 15.;
@@ -243,11 +254,11 @@ public class MotionMeasurement implements SensorEventListener {
 
     }
 
-    public int process4repetition_sub(List xAcc, List yAcc, List zAcc, List tAcc, List xGyr, List yGyr, List zGyr, List tGyr){
+    public int process4repetition_sub(List xAcc, List yAcc, List zAcc, List tAcc, List xGyr, List yGyr, List zGyr, List tGyr) {
         double result = 0;
-        for(int i = 0; i < yAcc.size(); i++) {
-            double y = (double)yAcc.get(i);
-            result = (result*i + y)/(i+1);
+        for (int i = 0; i < yAcc.size(); i++) {
+            double y = (double) yAcc.get(i);
+            result = (result * i + y) / (i + 1);
         }
         //List cos = new LinkedList();
         double[] xAccFeatures;
@@ -266,13 +277,54 @@ public class MotionMeasurement implements SensorEventListener {
 
         double features[] = new double[24];
 
-        for (int i = 0 ; i < 4 ; i++) {
+        for (int i = 0; i < 4; i++) {
             features[i] = xAccFeatures[i];
-            features[i+4] = yAccFeatures[i];
-            features[i+8] = zAccFeatures[i];
-            features[i+12] = xGyrFeatures[i];
-            features[i+16] = yGyrFeatures[i];
-            features[i+20] = zGyrFeatures[i];
+            features[i + 4] = yAccFeatures[i];
+            features[i + 8] = zAccFeatures[i];
+            features[i + 12] = xGyrFeatures[i];
+            features[i + 16] = yGyrFeatures[i];
+            features[i + 20] = zGyrFeatures[i];
+        }
+        try {
+
+        final URL locationLogin = new URL(URL_LOGIN);
+        InputStream streamLogin = null;
+        InputStream streamUpload = null;
+
+        try {
+            DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+            df.setMaximumFractionDigits(15);
+
+            String csv = "";
+            for (int i = 0; i < 23; i++) {
+                csv += df.format(features[i]) + ",";
+            }
+            csv += df.format(features[23]);
+
+            streamLogin = downloadUrl(locationLogin);
+
+            // Login
+            String[] loginResult = checkUpload(streamLogin);
+            String status = loginResult[0];
+            String key = loginResult[1];
+            String reason = loginResult[2];
+
+            if (status.equals("Success")) {
+
+                // Upload
+                final URL locationUpload = new URL(String.format(URL_UPLOAD, key, csv, "csv"));
+                streamUpload = downloadUrl(locationUpload);
+                String[] uploadResult = checkUpload(streamUpload);
+            }
+        } finally {
+            if (streamLogin != null) {
+                streamLogin.close();
+            }
+            if (streamUpload != null) {
+                streamUpload.close();
+            }
+        }
+    }catch (IOException e) {
         }
 
 
@@ -289,8 +341,6 @@ public class MotionMeasurement implements SensorEventListener {
         } catch(Exception e) {
             Log.e("Erreur",e.getMessage());
         }
-
-        Log.i("Reponse", response);
 
         return rep;
     }
@@ -358,6 +408,54 @@ public class MotionMeasurement implements SensorEventListener {
             result.setValue((Attribute) fvWekaAttributes.elementAt(i), values[i]);
         }
         return result;
+    }
+
+
+    private InputStream downloadUrl(final URL url) throws IOException {
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(NET_READ_TIMEOUT_MILLIS /* milliseconds */);
+        conn.setConnectTimeout(NET_CONNECT_TIMEOUT_MILLIS /* milliseconds */);
+        conn.setRequestMethod("GET");
+        conn.setDoInput(true);
+        // Starts the query
+        conn.connect();
+        return conn.getInputStream();
+    }
+
+    /**
+     * Read JSON stream.
+     */
+
+    public String[] checkUpload(final InputStream stream) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
+        try {
+            return readJSONObject(reader);
+        }
+        finally {
+            reader.close();
+        }
+    }
+
+    public String[] readJSONObject(JsonReader reader) throws IOException {
+        String status = "NotRead";
+        String key = "NotRead";
+        String reason = "NotRead";
+
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (name.equals("status")) {
+                status = reader.nextString();
+            } else if (name.equals("key")) {
+                key = reader.nextString();
+            } else if (name.equals("reason")) {
+                reason = reader.nextString();
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        return new String[]{status, key, reason};
     }
 
 }

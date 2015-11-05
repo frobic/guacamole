@@ -185,24 +185,27 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
 
             Log.i(TAG, "Closing Sound Measurement");
 
-            Log.i(TAG, "Performing Accelerometers Measurement");
+            Log.i(TAG, "Performing Repetitive Measurement");
 
             final MotionMeasurement motion = new MotionMeasurement(getContext());
 
-            long t = 0;
-            Calendar date = Calendar.getInstance();
-            t = date.getTimeInMillis();
-            long end = t+30000;
-            while(t < end) {
-                Calendar now = Calendar.getInstance();
-                t = now.getTimeInMillis();
-            }
+            Thread.sleep(30000);
 
             String[] motionMeasure = motion.stopStreaming();
             Log.i(TAG, motionMeasure[0]);
-            Log.i(TAG, motionMeasure[1]);
 
-            Log.i(TAG, "Closing Accelerometers Measurement");
+            Log.i(TAG, "Closing Repetitive Measurement");
+
+            Log.i(TAG, "Performing Vibrations Measurement");
+
+            final VibrationMeasurement vib = new VibrationMeasurement(getContext());
+
+            Thread.sleep(5000);
+
+            String[] vibMeasure = vib.stopStreaming();
+            Log.i(TAG, vibMeasure[0]);
+
+            Log.i(TAG, "Closing Vibrations Measurement");
 
 
             // A relire
@@ -213,7 +216,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
             try {
                 Log.i(TAG, "Updating database");
                 syncResult.stats.numEntries++;
-                updateDataBase(decibel, motionMeasure[0], motionMeasure[1]);
+                updateDataBase(decibel, vibMeasure[0], motionMeasure[0]);
                 syncResult.stats.numInserts++;
 
                 Log.i(TAG, "Uploading data: " + locationLogin);
@@ -238,8 +241,13 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
                     String[] uploadResult = checkUpload(streamUpload);
                     Log.i(TAG, "Upload: " + uploadResult[0]);
 
-                    final URL locationUpload2 = new URL(String.format(URL_UPLOAD, key, motionMeasure[1], "rep"));
+                    final URL locationUpload2 = new URL(String.format(URL_UPLOAD, key, motionMeasure[0], "rep"));
                     streamUpload = downloadUrl(locationUpload2);
+                    uploadResult = checkUpload(streamUpload);
+                    Log.i(TAG, "Upload: " + uploadResult[0]);
+
+                    final URL locationUpload3 = new URL(String.format(URL_UPLOAD, key, vibMeasure[0], "vib"));
+                    streamUpload = downloadUrl(locationUpload3);
                     uploadResult = checkUpload(streamUpload);
                     Log.i(TAG, "Upload: " + uploadResult[0]);
 
@@ -274,6 +282,8 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
             Log.e(TAG, "Error updating database: " + e.toString());
             syncResult.databaseError = true;
             return;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         Log.i(TAG, "Network synchronization complete");
     }
